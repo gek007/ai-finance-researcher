@@ -22,11 +22,11 @@ Reference: [architecture.md](architecture.md) (Implementation Sequence), [backen
 
 ## Phase 0 — Prerequisites
 
-- [ ] Install Python 3.12+, [uv](https://docs.astral.sh/uv/), Node 20+, pnpm (see [README](../README.md))
-- [ ] Create a Supabase project ([supabase-setup.md](guides/supabase-setup.md))
-- [ ] Save Project URL, anon key, service_role key, and **direct** database connection string
-- [ ] Create an OpenAI API key (needed from Phase 7 onward)
-- [ ] (Optional early) Run sample corpus download: `uv run data/download.py` from repo root
+- [x] Install Python 3.12+, [uv](https://docs.astral.sh/uv/), Node 20+, pnpm (see [README](../README.md))
+- [x] Create a Supabase project ([supabase-setup.md](guides/supabase-setup.md))
+- [x] Save Project URL, anon key, service_role key, and **direct** database connection string
+- [x] Create an OpenAI API key (needed from Phase 7 onward)
+- [x] (Optional early) Run sample corpus download: `uv run data/download.py` from repo root
 
 ---
 
