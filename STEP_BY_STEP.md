@@ -20,3 +20,11 @@
       uv run uvicorn app.main:app --reload
 
 3.  Can you now create a @backend/app/main.py  file and see if we can actually import this?
+
+4. Can you set up in the backend folder? Can you create a very short README file with instructions on how to manage our FastAPI app?
+
+5. Let's start working on database. Let's begin the implementation of phase #2: create database schema using SQLAlchemy.
+
+6. Okay, perfect. Now let's continue setting up the migration. Prepare everything, and then tell me when you are ready before making actual changes to the database itself.
+
+7. Okay, can you now update the todo.md file and check off everything that we did? Also, please run the final check, if any.

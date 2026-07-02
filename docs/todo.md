@@ -36,11 +36,12 @@ Minimal shells so `uv sync` / `pnpm dev` work. No product logic yet.
 
 ### Backend
 
-- [ ] Add dependencies per [backend-setup.md](guides/backend-setup.md) (`fastapi`, `uvicorn`, `pydantic-settings`, etc.)
-- [ ] Create `backend/app/main.py` with health route (`GET /health`)
-- [ ] Create `backend/app/config.py` — single settings module; fail fast on missing env
-- [ ] Copy `backend/.env.example` → `.env` and fill Supabase + OpenAI vars
-- [ ] Confirm: `uv run uvicorn app.main:app --reload` starts cleanly
+- [x] Add dependencies per [backend-setup.md](guides/backend-setup.md) (`fastapi`, `uvicorn`, `pydantic-settings`, etc.)
+- [x] Create `backend/app/main.py` with health route (`GET /health`)
+- [x] Create `backend/app/config.py` — single settings module; fail fast on missing env
+- [x] Copy `backend/.env.example` → `.env` and fill Supabase + OpenAI vars
+- [x] Confirm: `uv run uvicorn app.main:app --reload` starts cleanly
+- [x] Add `backend/README.md` with run, lint, and migration commands
 
 ### Frontend
 
@@ -56,17 +57,17 @@ Minimal shells so `uv sync` / `pnpm dev` work. No product logic yet.
 
 Schema before auth/chat — everything persists here.
 
-- [ ] Init Alembic (`uv run alembic init alembic`); wire `env.py` to SQLAlchemy metadata + `settings.database_url`
-- [ ] Add SQLAlchemy models in `app/database/models.py`:
-  - [ ] `profiles`
-  - [ ] `chat_threads`, `chat_messages`, `message_citations`
-  - [ ] `source_documents`, `document_chunks` (embedding + `tsvector` columns)
-- [ ] Generate and **review** initial migration; add explicit ops for:
-  - [ ] `create extension if not exists vector`
-  - [ ] HNSW index on embeddings, GIN on full-text / metadata
-  - [ ] RLS policies
-- [ ] Apply: `uv run alembic upgrade head` against Supabase direct connection
-- [ ] Add `app/database/supabase.py` — user-scoped and service-role clients
+- [x] Init Alembic (`uv run alembic init alembic`); wire `env.py` to SQLAlchemy metadata + `settings.database_url`
+- [x] Add SQLAlchemy models in `app/database/models.py`:
+  - [x] `profiles`
+  - [x] `chat_threads`, `chat_messages`, `message_citations`
+  - [x] `source_documents`, `document_chunks` (embedding + `tsvector` columns)
+- [x] Generate and **review** initial migration; add explicit ops for:
+  - [x] `create extension if not exists vector`
+  - [x] HNSW index on embeddings, GIN on full-text / metadata
+  - [x] RLS policies
+- [x] Apply: `uv run alembic upgrade head` against Supabase direct connection
+- [x] Add `app/database/supabase.py` — user-scoped and service-role clients
 
 ---
 
