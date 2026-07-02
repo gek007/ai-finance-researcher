@@ -45,8 +45,8 @@ Minimal shells so `uv sync` / `pnpm dev` work. No product logic yet.
 
 ### Frontend
 
-- [ ] Scaffold Vite + React + TS per [frontend-setup.md](guides/frontend-setup.md)
-- [ ] Add Tailwind + shadcn/ui baseline
+- [x] Scaffold Vite + React + TS per [frontend-setup.md](guides/frontend-setup.md)
+- [x] Add Tailwind + shadcn/ui baseline
 - [ ] Create `src/lib/env.ts` — validate `VITE_API_BASE_URL`, `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
 - [ ] Copy `frontend/.env.example` → `.env`
 - [ ] Confirm: `pnpm dev` serves the app
