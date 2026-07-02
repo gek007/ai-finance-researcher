@@ -47,9 +47,9 @@ Minimal shells so `uv sync` / `pnpm dev` work. No product logic yet.
 
 - [x] Scaffold Vite + React + TS per [frontend-setup.md](guides/frontend-setup.md)
 - [x] Add Tailwind + shadcn/ui baseline
-- [ ] Create `src/lib/env.ts` — validate `VITE_API_BASE_URL`, `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
-- [ ] Copy `frontend/.env.example` → `.env`
-- [ ] Confirm: `pnpm dev` serves the app
+- [x] Create `src/lib/env.ts` — validate `VITE_API_BASE_URL`, `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
+- [x] Copy `frontend/.env.example` → `.env`
+- [x] Confirm: `pnpm dev` serves the app
 
 ---
 
@@ -77,17 +77,17 @@ Both sides in the same sprint — neither is useful alone.
 
 ### Backend
 
-- [ ] `app/auth/dependencies.py` — verify `Authorization: Bearer <token>` via Supabase Auth
-- [ ] Expose `get_current_user` FastAPI dependency
-- [ ] Add protected probe route (e.g. `GET /me`) to prove JWT flow
+- [x] `app/auth/dependencies.py` — verify `Authorization: Bearer <token>` via Supabase Auth
+- [x] Expose `get_current_user` FastAPI dependency
+- [x] Add protected probe route (e.g. `GET /me`) to prove JWT flow
 
 ### Frontend
 
-- [ ] `src/lib/supabase.ts` — browser Supabase client
-- [ ] Email sign-in / sign-up pages (Supabase Auth only)
-- [ ] Session persistence + sign-out
-- [ ] `src/lib/http.ts` — fetch wrapper with bearer token injection
-- [ ] Confirm: logged-in user can hit backend `/me` successfully
+- [x] `src/lib/supabase.ts` — browser Supabase client
+- [x] Email sign-in / sign-up pages (Supabase Auth only)
+- [x] Session persistence + sign-out
+- [x] `src/lib/http.ts` — fetch wrapper with bearer token injection
+- [x] Confirm: logged-in user can hit backend `/me` successfully
 
 ---
 

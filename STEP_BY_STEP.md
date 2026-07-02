@@ -28,3 +28,5 @@
 6. Okay, perfect. Now let's continue setting up the migration. Prepare everything, and then tell me when you are ready before making actual changes to the database itself.
 
 7. Okay, can you now update the todo.md file and check off everything that we did? Also, please run the final check, if any.
+
+8. Could you check our current progress and start implementing phase #3?

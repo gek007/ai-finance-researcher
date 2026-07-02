@@ -2,6 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.auth import router as auth_router
 from app.config import settings
 
 app = FastAPI(title="AI-Finance-Researcher API")
@@ -18,6 +19,9 @@ app.add_middleware(
 @app.get("/health")
 async def health() -> dict[str, str]:
     return {"status": "ok"}
+
+
+app.include_router(auth_router)
 
 
 if __name__ == "__main__":
