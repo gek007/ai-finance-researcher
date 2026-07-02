@@ -30,3 +30,9 @@
 7. Okay, can you now update the todo.md file and check off everything that we did? Also, please run the final check, if any.
 
 8. Could you check our current progress and start implementing phase #3?
+
+   user in db:  kostya.shilkrot@gmail.com 
+                lopfer12
+
+                
+
