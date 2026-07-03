@@ -19,7 +19,7 @@ export class ApiError extends Error {
   }
 }
 
-function buildUrl(path: string): string {
+export function buildApiUrl(path: string): string {
   const baseUrl = env.apiBaseUrl.endsWith('/') ? env.apiBaseUrl : `${env.apiBaseUrl}/`
   return new URL(path.replace(/^\//, ''), baseUrl).toString()
 }
@@ -42,7 +42,7 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
 
   let response: Response
   try {
-    response = await fetch(buildUrl(path), {
+    response = await fetch(buildApiUrl(path), {
       ...options,
       headers,
       body,

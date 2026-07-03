@@ -108,11 +108,11 @@ Thread CRUD + streaming stub before real LLM work.
 
 Prove the full browser → FastAPI → DB loop.
 
-- [ ] `src/lib/api.ts` — thread list, create, load history
-- [ ] Chat route + layout (`src/pages/chat/*`)
-- [ ] Integrate Vercel AI SDK `useChat` pointed at `${API}/chat/stream` with Supabase token headers
-- [ ] Basic message list + input + streaming indicator
-- [ ] Empty state for new thread
+- [x] `src/lib/api.ts` — thread list, create, load history
+- [x] Chat route + layout (`src/pages/chat/*`)
+- [x] Integrate Vercel AI SDK `useChat` pointed at `${API}/chat/stream` with Supabase token headers
+- [x] Basic message list + input + streaming indicator
+- [x] Empty state for new thread
 - [ ] Confirm: sign in → new thread → send message → see stub stream → reload → history persists
 
 ---
@@ -121,7 +121,7 @@ Prove the full browser → FastAPI → DB loop.
 
 Get real SEC filings into Supabase. Can run in parallel with Phase 5 if using stub chat.
 
-- [ ] `backend/ingest/` — parse downloaded filings to normalized Markdown
+- [x] `backend/ingest/` — parse downloaded filings to normalized Markdown (`convert_html_to_markdown.py`, via docling; spot-checked tables convert correctly)
 - [ ] Chunking strategy (size, overlap, metadata: ticker, filing type, date, section)
 - [ ] Embedding generation (OpenAI) + write `document_chunks` + `source_documents`
 - [ ] Populate Postgres `tsvector` for full-text search

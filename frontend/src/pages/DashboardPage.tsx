@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/lib/auth-context'
@@ -48,9 +49,14 @@ export function DashboardPage() {
               Signed in as {user?.email ?? 'an authenticated user'}.
             </p>
           </div>
-          <Button variant="outline" type="button" onClick={handleSignOut}>
-            Sign out
-          </Button>
+          <div className="flex gap-2">
+            <Button asChild>
+              <Link to="/chat">Open chat</Link>
+            </Button>
+            <Button variant="outline" type="button" onClick={handleSignOut}>
+              Sign out
+            </Button>
+          </div>
         </header>
 
         <section className="rounded-2xl border bg-card p-6 shadow-sm">

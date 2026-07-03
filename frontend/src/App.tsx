@@ -4,6 +4,8 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { AuthProvider } from '@/lib/auth'
 import { useAuth } from '@/lib/auth-context'
 import { AuthPage } from '@/pages/AuthPage'
+import { ChatPage } from '@/pages/chat/ChatPage'
+import { NewChatPage } from '@/pages/chat/NewChatPage'
 import { DashboardPage } from '@/pages/DashboardPage'
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
@@ -43,6 +45,22 @@ function App() {
             element={
               <ProtectedRoute>
                 <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/chat"
+            element={
+              <ProtectedRoute>
+                <NewChatPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/chat/:threadId"
+            element={
+              <ProtectedRoute>
+                <ChatPage />
               </ProtectedRoute>
             }
           />
