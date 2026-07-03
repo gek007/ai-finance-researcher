@@ -29,8 +29,16 @@ dependencies = [
 #add-bounds = "exact"
 exclude-newer = "2026-06-24T00:00:00Z"
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = [
+    "integration: requires live external services (Supabase, OpenAI); excluded by default",
+]
+
 [dependency-groups]
 dev = [
+    "docling>=2.106.0",
     "ipykernel>=7.3.0",
     "pytest>=9.1.1",
     "ruff>=0.15.18",

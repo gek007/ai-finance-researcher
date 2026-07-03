@@ -95,12 +95,12 @@ Both sides in the same sprint — neither is useful alone.
 
 Thread CRUD + streaming stub before real LLM work.
 
-- [ ] `app/database/chats.py` — create/list/load threads and messages (user-scoped)
-- [ ] REST routes: list threads, create thread, load thread + messages
-- [ ] `POST /chat/stream` — accept AI SDK message shape; stream a **stubbed** assistant reply
-- [ ] `app/chat/streaming.py` — emit AI SDK-compatible stream events
-- [ ] Persist user + assistant messages after stream completes
-- [ ] Configure CORS (`ALLOWED_ORIGINS`) for local frontend origin
+- [x] `app/database/chats.py` — create/list/load threads and messages (user-scoped)
+- [x] REST routes: list threads, create thread, load thread + messages
+- [x] `POST /chat/stream` — accept AI SDK message shape; stream a **stubbed** assistant reply
+- [x] `app/chat/streaming.py` — emit AI SDK-compatible stream events
+- [x] Persist user + assistant messages after stream completes
+- [x] Configure CORS (`ALLOWED_ORIGINS`) for local frontend origin
 
 ---
 
