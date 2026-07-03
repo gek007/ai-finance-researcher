@@ -113,6 +113,7 @@ Prove the full browser → FastAPI → DB loop.
 - [x] Integrate Vercel AI SDK `useChat` pointed at `${API}/chat/stream` with Supabase token headers
 - [x] Basic message list + input + streaming indicator
 - [x] Empty state for new thread
+- [x] Frontend checks: `pnpm exec tsc --noEmit`, `pnpm lint`, Vite app loads, unauthenticated `/chat` redirects to `/auth`
 - [ ] Confirm: sign in → new thread → send message → see stub stream → reload → history persists
 
 ---
