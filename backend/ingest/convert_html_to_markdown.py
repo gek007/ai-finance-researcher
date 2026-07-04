@@ -1,9 +1,6 @@
 """Convert downloaded SEC filing HTML files to Markdown with docling.
 
-Mirrors `data/downloads/<year>/<file>.htm` into `data/markdown/<year>/<file>.md`,
-keeping the same year-based directory structure.
-
-Run from `backend/`: `uv run python -m ingest.convert_html_to_markdown`
+Mirrors `data/downloads/<year>/<file>.htm` into `data/markdown/<year>/<file>.md`.
 """
 
 from __future__ import annotations
@@ -17,14 +14,16 @@ INPUT_DIR = REPO_ROOT / "data" / "downloads"
 OUTPUT_DIR = REPO_ROOT / "data" / "markdown"
 
 
-def convert_all() -> int:
+def convert_all(
+    input_dir: Path = INPUT_DIR, output_dir: Path = OUTPUT_DIR
+) -> int:
     converter = DocumentConverter()
-    html_paths = sorted(INPUT_DIR.rglob("*.htm*"))
+    html_paths = sorted(input_dir.rglob("*.htm*"))
 
     converted = 0
     for html_path in html_paths:
-        relative_path = html_path.relative_to(INPUT_DIR)
-        markdown_path = (OUTPUT_DIR / relative_path).with_suffix(".md")
+        relative_path = html_path.relative_to(input_dir)
+        markdown_path = (output_dir / relative_path).with_suffix(".md")
         markdown_path.parent.mkdir(parents=True, exist_ok=True)
 
         print(f"Converting {relative_path}...")

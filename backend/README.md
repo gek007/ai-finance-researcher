@@ -89,3 +89,31 @@ uv run alembic revision --autogenerate -m "describe change"
 uv add <package>
 uv add --dev <package>   # pytest, ruff, etc.
 ```
+
+## Ingestion
+
+From repo root, download sample filings:
+
+```bash
+uv run data/download.py
+```
+
+From `backend/`, convert HTML to Markdown and ingest into Supabase:
+
+```bash
+uv run python -m ingest.run --manifest ../data/downloads/manifest.json --convert
+```
+
+Limit to specific tickers:
+
+```bash
+uv run python -m ingest.run --manifest ../data/downloads/manifest.json --ticker AAPL --ticker MSFT
+```
+
+Requires `OPENAI_API_KEY`, Supabase service-role credentials, and applied migrations. After ingest, verify chunks exist (Supabase SQL editor):
+
+```sql
+select count(*) from document_chunks dc
+join source_documents sd on sd.id = dc.document_id
+where sd.ticker in ('AAPL', 'MSFT');
+```

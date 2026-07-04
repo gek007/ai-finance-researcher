@@ -123,11 +123,11 @@ Prove the full browser → FastAPI → DB loop.
 Get real SEC filings into Supabase. Can run in parallel with Phase 5 if using stub chat.
 
 - [x] `backend/ingest/` — parse downloaded filings to normalized Markdown (`convert_html_to_markdown.py`, via docling; spot-checked tables convert correctly)
-- [ ] Chunking strategy (size, overlap, metadata: ticker, filing type, date, section)
-- [ ] Embedding generation (OpenAI) + write `document_chunks` + `source_documents`
-- [ ] Populate Postgres `tsvector` for full-text search
-- [ ] Ingest script CLI (e.g. `uv run python -m ingest.run --manifest data/downloads/manifest.json`)
-- [ ] Confirm: sample AAPL/MSFT 10-K chunks queryable in DB
+- [x] Chunking strategy (size, overlap, metadata: ticker, filing type, date, section) — `ingest/chunking.py` (400 words / 50 overlap, paragraph-aware)
+- [x] Embedding generation (OpenAI) + write `document_chunks` + `source_documents` — `ingest/embeddings.py`, `app/database/documents.py`
+- [x] Populate Postgres `tsvector` for full-text search — generated column on insert; no separate ingest step
+- [x] Ingest script CLI (e.g. `uv run python -m ingest.run --manifest ../data/downloads/manifest.json`)
+- [x] Confirm: corpus ingested — 25 sample 10-K filings (AAPL, MSFT, NVDA, AMZN, GOOGL) in `source_documents` + `document_chunks` (batched chunk inserts; `page_label` clipped to 128 chars)
 
 ---
 
