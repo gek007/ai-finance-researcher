@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     database_url: str
 
     openai_api_key: str
+    openai_chat_model: str = "gpt-5.5-mini"
     openai_embedding_model: str = "text-embedding-3-small"
     openai_embedding_dimensions: int = 1536
 

@@ -140,6 +140,60 @@ LIMIT %(limit)s
     return _ranked_hits(rows)
 
 
+def get_chunk_by_id(
+    chunk_id: str,
+    *,
+    db: QueryExecutor | None = None,
+) -> SearchHit | None:
+    sql = f"""
+SELECT
+{_PASSAGE_COLUMNS},
+    1.0 AS score
+{_PASSAGE_FROM}
+WHERE c.id = %(chunk_id)s::uuid
+LIMIT 1
+"""
+    rows = (db or PsycopgQueryExecutor()).fetch_all(sql, {"chunk_id": chunk_id})
+    hits = _ranked_hits(rows)
+    return hits[0] if hits else None
+
+
+def get_surrounding_chunks(
+    chunk_id: str,
+    *,
+    before: int = 1,
+    after: int = 1,
+    db: QueryExecutor | None = None,
+) -> list[SearchHit]:
+    """Return the target chunk and neighbors in the same document, ordered by index."""
+    if before < 0 or after < 0:
+        raise ValueError("before and after must be non-negative")
+
+    executor = db or PsycopgQueryExecutor()
+    anchor = get_chunk_by_id(chunk_id, db=executor)
+    if anchor is None:
+        return []
+
+    sql = f"""
+SELECT
+{_PASSAGE_COLUMNS},
+    1.0 AS score
+{_PASSAGE_FROM}
+WHERE c.document_id = %(document_id)s::uuid
+  AND c.chunk_index BETWEEN %(min_index)s AND %(max_index)s
+ORDER BY c.chunk_index
+"""
+    rows = executor.fetch_all(
+        sql,
+        {
+            "document_id": anchor.document_id,
+            "min_index": anchor.chunk_index - before,
+            "max_index": anchor.chunk_index + after,
+        },
+    )
+    return _ranked_hits(rows)
+
+
 def _ranked_hits(rows: list[dict[str, Any]]) -> list[SearchHit]:
     return [SearchHit.from_row(row, rank=index + 1) for index, row in enumerate(rows)]
 

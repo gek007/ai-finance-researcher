@@ -132,12 +132,16 @@ def test_stream_returns_ui_message_stream_response(client, monkeypatch) -> None:
     monkeypatch.setattr(
         chat_module.chats, "get_thread", lambda c, tid: _thread_row(thread_id)
     )
-    monkeypatch.setattr(
-        chat_module.chats, "append_message", lambda *args, **kwargs: _message_row(
-            kwargs.get("role", "user"), kwargs.get("content", "")
-        )
-    )
-    monkeypatch.setattr(chat_module.chats, "touch_thread", lambda *args, **kwargs: None)
+
+    async def fake_stream(*args, **kwargs):
+        yield b'data: {"type":"start","messageId":"msg-assistant"}\n\n'
+        yield b'data: {"type":"text-start","id":"msg-assistant"}\n\n'
+        yield b'data: {"type":"text-delta","id":"msg-assistant","delta":"Cited answer"}\n\n'
+        yield b'data: {"type":"text-end","id":"msg-assistant"}\n\n'
+        yield b'data: {"type":"finish"}\n\n'
+        yield b"data: [DONE]\n\n"
+
+    monkeypatch.setattr(chat_module, "stream_grounded_reply", fake_stream)
 
     response = client.post(
         "/chat/stream",
@@ -156,4 +160,5 @@ def test_stream_returns_ui_message_stream_response(client, monkeypatch) -> None:
     assert response.status_code == 200
     assert response.headers["x-vercel-ai-ui-message-stream"] == "v1"
     assert "text/event-stream" in response.headers["content-type"]
+    assert "Cited answer" in response.text
     assert "data: [DONE]" in response.text

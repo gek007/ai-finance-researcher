@@ -91,6 +91,34 @@ def append_message(
     return response.data[0]
 
 
+def append_citations(
+    client: Client,
+    message_id: UUID | str,
+    citations: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Insert citation rows for an assistant message.
+
+    Uses a privileged client because RLS only grants owners SELECT on
+    `message_citations`. Callers must already have validated ownership of the
+    parent message.
+    """
+    if not citations:
+        return []
+
+    payloads = [
+        {
+            "id": str(uuid.uuid4()),
+            "message_id": str(message_id),
+            "chunk_id": str(citation["chunk_id"]),
+            "citation_index": index,
+            "quote": citation.get("quote"),
+        }
+        for index, citation in enumerate(citations)
+    ]
+    response = client.table("message_citations").insert(payloads).execute()
+    return response.data
+
+
 def _next_sort_order(client: Client, thread_id: UUID) -> int:
     response = (
         client.table("chat_messages")

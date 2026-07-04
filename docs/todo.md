@@ -147,12 +147,12 @@ Hybrid search before the agent.
 
 Replace stub stream with grounded answers.
 
-- [ ] `app/assistant/` — PydanticAI agent, deps, typed `GroundedAnswer` output, `instructions.md`
-- [ ] Agent tools: `search_filings`, `read_chunk`, `read_surrounding_chunks` (no free-form SQL)
-- [ ] `app/chat/orchestrator.py` — one turn: retrieve → agent → validate → stream → persist
-- [ ] `app/grounding/validator.py` — every citation maps to a retrieved passage
-- [ ] Wire `/chat/stream` to orchestrator
-- [ ] Unit tests for citation validation and grounding failures
+- [x] `app/assistant/` — PydanticAI agent, deps, typed `GroundedAnswer` output, `instructions.md`
+- [x] Agent tools: `search_filings`, `read_chunk`, `read_surrounding_chunks` (no free-form SQL)
+- [x] `app/chat/orchestrator.py` — one turn: retrieve → agent → validate → stream → persist
+- [x] `app/grounding/validator.py` — every citation maps to a retrieved passage
+- [x] Wire `/chat/stream` to orchestrator
+- [x] Unit tests for citation validation and grounding failures
 - [ ] Confirm: real question returns cited answer from corpus (curl or frontend)
 
 ---

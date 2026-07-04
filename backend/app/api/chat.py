@@ -9,7 +9,8 @@ from supabase import Client
 
 from app.auth.dependencies import CurrentUser, get_current_user
 from app.chat.messages import UIMessage
-from app.chat.streaming import STREAM_HEADERS, stream_stub_reply
+from app.chat.orchestrator import stream_grounded_reply
+from app.chat.streaming import STREAM_HEADERS
 from app.database import chats
 from app.database.supabase import get_user_client
 
@@ -106,7 +107,12 @@ async def stream_chat(
         )
 
     return StreamingResponse(
-        stream_stub_reply(client, payload.thread_id, payload.messages[-1]),
+        stream_grounded_reply(
+            client,
+            current_user.id,
+            payload.thread_id,
+            payload.messages[-1],
+        ),
         media_type="text/event-stream",
         headers=STREAM_HEADERS,
     )

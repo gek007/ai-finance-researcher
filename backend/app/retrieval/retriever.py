@@ -15,6 +15,8 @@ from app.retrieval.queries import (
     QueryExecutor,
     SearchHit,
     full_text_search,
+    get_chunk_by_id,
+    get_surrounding_chunks,
     semantic_search,
 )
 
@@ -87,6 +89,28 @@ def retrieve_passages(
         SourcePassage.from_hit(result.item, fused_score=result.score)
         for result in fused
     ]
+
+
+def read_chunk(
+    chunk_id: str,
+    *,
+    db: QueryExecutor | None = None,
+) -> SourcePassage | None:
+    hit = get_chunk_by_id(chunk_id, db=db)
+    if hit is None:
+        return None
+    return SourcePassage.from_hit(hit, fused_score=hit.score)
+
+
+def read_surrounding_chunks(
+    chunk_id: str,
+    *,
+    before: int = 1,
+    after: int = 1,
+    db: QueryExecutor | None = None,
+) -> list[SourcePassage]:
+    hits = get_surrounding_chunks(chunk_id, before=before, after=after, db=db)
+    return [SourcePassage.from_hit(hit, fused_score=hit.score) for hit in hits]
 
 
 def _embed_query(query: str) -> list[float]:
