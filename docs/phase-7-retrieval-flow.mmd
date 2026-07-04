@@ -1,0 +1,39 @@
+flowchart TD
+  UserQuery["User question"]
+
+  Retriever["retrieve_passages(query)"]
+  Embed["OpenAI embedding for query"]
+
+  Semantic["semantic_search()"]
+  Keyword["full_text_search()"]
+
+  VectorSQL["Postgres pgvector query<br/>ORDER BY embedding cosine distance"]
+  FullTextSQL["Postgres full-text query<br/>search_vector @@ websearch_to_tsquery"]
+
+  Chunks[("document_chunks<br/>embedding + search_vector")]
+  Docs[("source_documents<br/>filing metadata")]
+
+  SemanticHits["Ranked semantic SearchHit list"]
+  KeywordHits["Ranked keyword SearchHit list"]
+
+  Fusion["reciprocal_rank_fusion()<br/>dedupe by chunk_id"]
+  SourcePassages["Ranked SourcePassage list<br/>for phase 8 assistant"]
+
+  UserQuery --> Retriever
+  Retriever --> Embed
+  Embed --> Semantic
+  Retriever --> Keyword
+
+  Semantic --> VectorSQL
+  Keyword --> FullTextSQL
+
+  VectorSQL --> Chunks
+  FullTextSQL --> Chunks
+  Chunks --> Docs
+
+  VectorSQL --> SemanticHits
+  FullTextSQL --> KeywordHits
+
+  SemanticHits --> Fusion
+  KeywordHits --> Fusion
+  Fusion --> SourcePassages

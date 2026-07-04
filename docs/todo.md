@@ -135,10 +135,10 @@ Get real SEC filings into Supabase. Can run in parallel with Phase 5 if using st
 
 Hybrid search before the agent.
 
-- [ ] `app/retrieval/queries.py` — pgvector semantic search + Postgres full-text search
-- [ ] `app/retrieval/fusion.py` — Reciprocal Rank Fusion in Python
-- [ ] `app/retrieval/retriever.py` — query → ranked `SourcePassage` list
-- [ ] Unit tests for fusion ranking and query assembly (mock DB)
+- [x] `app/retrieval/queries.py` — pgvector semantic search + Postgres full-text search
+- [x] `app/retrieval/fusion.py` — Reciprocal Rank Fusion in Python
+- [x] `app/retrieval/retriever.py` — query → ranked `SourcePassage` list
+- [x] Unit tests for fusion ranking and query assembly (mock DB)
 - [ ] Confirm: test query returns relevant chunks from ingested corpus
 
 ---
