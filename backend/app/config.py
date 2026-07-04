@@ -23,7 +23,10 @@ class Settings(BaseSettings):
     openai_embedding_model: str = "text-embedding-3-small"
     openai_embedding_dimensions: int = 1536
 
-    allowed_origins: str = "http://127.0.0.1:5203,http://localhost:5203"
+    allowed_origins: str = (
+        "http://127.0.0.1:5203,http://localhost:5203,"
+        "http://127.0.0.1:5204,http://localhost:5204"
+    )
 
     @computed_field  # type: ignore[prop-decorator]
     @property
