@@ -28,6 +28,10 @@ class CreateThreadRequest(BaseModel):
     title: str = chats.DEFAULT_THREAD_TITLE
 
 
+class UpdateThreadRequest(BaseModel):
+    title: str = Field(min_length=1, max_length=200)
+
+
 class MessageResponse(BaseModel):
     id: UUID
     role: str

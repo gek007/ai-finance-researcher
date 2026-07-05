@@ -59,6 +59,16 @@ def touch_thread(client: Client, thread_id: UUID) -> None:
     ).eq("id", str(thread_id)).execute()
 
 
+def rename_thread(client: Client, thread_id: UUID, title: str) -> dict[str, Any] | None:
+    response = (
+        client.table("chat_threads")
+        .update({"title": title, "updated_at": datetime.now(UTC).isoformat()})
+        .eq("id", str(thread_id))
+        .execute()
+    )
+    return response.data[0] if response.data else None
+
+
 def list_messages(client: Client, thread_id: UUID) -> list[dict[str, Any]]:
     response = (
         client.table("chat_messages")

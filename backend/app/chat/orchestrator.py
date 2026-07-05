@@ -55,15 +55,17 @@ def _assistant_message_json(
         citation = answer.citations[index]
         parts.append(
             {
-                "type": "source",
-                "sourceType": "document",
-                "id": passage.chunk_id,
+                "type": "source-document",
+                "sourceId": passage.chunk_id,
+                "mediaType": "text/plain",
                 "title": (
                     f"{passage.ticker} {passage.filing_type}"
                     f" ({passage.filing_date or passage.fiscal_year or 'n/a'})"
                 ),
-                "excerpt": citation.quote or passage.text[:280],
-                "metadata": _passage_for_json(passage),
+                "providerMetadata": {
+                    "excerpt": citation.quote or passage.text[:280],
+                    "passage": _passage_for_json(passage),
+                },
             }
         )
     return {
