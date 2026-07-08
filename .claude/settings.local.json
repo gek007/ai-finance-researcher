@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(claude mcp *)",
+      "WebFetch(domain:github.com)",
+      "Bash(git check-ignore *)",
+      "Bash(git status *)",
+      "Bash(grep -E \"^\\\\.env$|/\\\\.env$\")",
+      "Bash(grep -i \"\\\\.env$\")",
+      "Bash(cat .gitignore)",
+      "Bash(cat backend/.gitignore)",
+      "Bash(cat frontend/.gitignore)"
+    ]
+  }
+}
