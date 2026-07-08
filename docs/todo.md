@@ -22,11 +22,11 @@ Reference: [architecture.md](architecture.md) (Implementation Sequence), [backen
 
 ## Phase 0 — Prerequisites
 
-- [ ] Install Python 3.12+, [uv](https://docs.astral.sh/uv/), Node 20+, pnpm (see [README](../README.md))
-- [ ] Create a Supabase project ([supabase-setup.md](guides/supabase-setup.md))
-- [ ] Save Project URL, anon key, service_role key, and **direct** database connection string
-- [ ] Create an OpenAI API key (needed from Phase 7 onward)
-- [ ] (Optional early) Run sample corpus download: `uv run data/download.py` from repo root
+- [x] Install Python 3.12+, [uv](https://docs.astral.sh/uv/), Node 20+, pnpm (see [README](../README.md))
+- [x] Create a Supabase project ([supabase-setup.md](guides/supabase-setup.md))
+- [x] Save Project URL, anon key, service_role key, and **direct** database connection string
+- [x] Create an OpenAI API key (needed from Phase 7 onward)
+- [x] (Optional early) Run sample corpus download: `uv run data/download.py` from repo root
 
 ---
 
@@ -36,19 +36,20 @@ Minimal shells so `uv sync` / `pnpm dev` work. No product logic yet.
 
 ### Backend
 
-- [ ] Add dependencies per [backend-setup.md](guides/backend-setup.md) (`fastapi`, `uvicorn`, `pydantic-settings`, etc.)
-- [ ] Create `backend/app/main.py` with health route (`GET /health`)
-- [ ] Create `backend/app/config.py` — single settings module; fail fast on missing env
-- [ ] Copy `backend/.env.example` → `.env` and fill Supabase + OpenAI vars
-- [ ] Confirm: `uv run uvicorn app.main:app --reload` starts cleanly
+- [x] Add dependencies per [backend-setup.md](guides/backend-setup.md) (`fastapi`, `uvicorn`, `pydantic-settings`, etc.)
+- [x] Create `backend/app/main.py` with health route (`GET /health`)
+- [x] Create `backend/app/config.py` — single settings module; fail fast on missing env
+- [x] Copy `backend/.env.example` → `.env` and fill Supabase + OpenAI vars
+- [x] Confirm: `uv run uvicorn app.main:app --reload` starts cleanly
+- [x] Add `backend/README.md` with run, lint, and migration commands
 
 ### Frontend
 
-- [ ] Scaffold Vite + React + TS per [frontend-setup.md](guides/frontend-setup.md)
-- [ ] Add Tailwind + shadcn/ui baseline
-- [ ] Create `src/lib/env.ts` — validate `VITE_API_BASE_URL`, `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
-- [ ] Copy `frontend/.env.example` → `.env`
-- [ ] Confirm: `pnpm dev` serves the app
+- [x] Scaffold Vite + React + TS per [frontend-setup.md](guides/frontend-setup.md)
+- [x] Add Tailwind + shadcn/ui baseline
+- [x] Create `src/lib/env.ts` — validate `VITE_API_BASE_URL`, `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
+- [x] Copy `frontend/.env.example` → `.env`
+- [x] Confirm: `pnpm dev` serves the app
 
 ---
 
@@ -56,17 +57,17 @@ Minimal shells so `uv sync` / `pnpm dev` work. No product logic yet.
 
 Schema before auth/chat — everything persists here.
 
-- [ ] Init Alembic (`uv run alembic init alembic`); wire `env.py` to SQLAlchemy metadata + `settings.database_url`
-- [ ] Add SQLAlchemy models in `app/database/models.py`:
-  - [ ] `profiles`
-  - [ ] `chat_threads`, `chat_messages`, `message_citations`
-  - [ ] `source_documents`, `document_chunks` (embedding + `tsvector` columns)
-- [ ] Generate and **review** initial migration; add explicit ops for:
-  - [ ] `create extension if not exists vector`
-  - [ ] HNSW index on embeddings, GIN on full-text / metadata
-  - [ ] RLS policies
-- [ ] Apply: `uv run alembic upgrade head` against Supabase direct connection
-- [ ] Add `app/database/supabase.py` — user-scoped and service-role clients
+- [x] Init Alembic (`uv run alembic init alembic`); wire `env.py` to SQLAlchemy metadata + `settings.database_url`
+- [x] Add SQLAlchemy models in `app/database/models.py`:
+  - [x] `profiles`
+  - [x] `chat_threads`, `chat_messages`, `message_citations`
+  - [x] `source_documents`, `document_chunks` (embedding + `tsvector` columns)
+- [x] Generate and **review** initial migration; add explicit ops for:
+  - [x] `create extension if not exists vector`
+  - [x] HNSW index on embeddings, GIN on full-text / metadata
+  - [x] RLS policies
+- [x] Apply: `uv run alembic upgrade head` against Supabase direct connection
+- [x] Add `app/database/supabase.py` — user-scoped and service-role clients
 
 ---
 
@@ -76,17 +77,17 @@ Both sides in the same sprint — neither is useful alone.
 
 ### Backend
 
-- [ ] `app/auth/dependencies.py` — verify `Authorization: Bearer <token>` via Supabase Auth
-- [ ] Expose `get_current_user` FastAPI dependency
-- [ ] Add protected probe route (e.g. `GET /me`) to prove JWT flow
+- [x] `app/auth/dependencies.py` — verify `Authorization: Bearer <token>` via Supabase Auth
+- [x] Expose `get_current_user` FastAPI dependency
+- [x] Add protected probe route (e.g. `GET /me`) to prove JWT flow
 
 ### Frontend
 
-- [ ] `src/lib/supabase.ts` — browser Supabase client
-- [ ] Email sign-in / sign-up pages (Supabase Auth only)
-- [ ] Session persistence + sign-out
-- [ ] `src/lib/http.ts` — fetch wrapper with bearer token injection
-- [ ] Confirm: logged-in user can hit backend `/me` successfully
+- [x] `src/lib/supabase.ts` — browser Supabase client
+- [x] Email sign-in / sign-up pages (Supabase Auth only)
+- [x] Session persistence + sign-out
+- [x] `src/lib/http.ts` — fetch wrapper with bearer token injection
+- [x] Confirm: logged-in user can hit backend `/me` successfully
 
 ---
 
@@ -94,12 +95,12 @@ Both sides in the same sprint — neither is useful alone.
 
 Thread CRUD + streaming stub before real LLM work.
 
-- [ ] `app/database/chats.py` — create/list/load threads and messages (user-scoped)
-- [ ] REST routes: list threads, create thread, load thread + messages
-- [ ] `POST /chat/stream` — accept AI SDK message shape; stream a **stubbed** assistant reply
-- [ ] `app/chat/streaming.py` — emit AI SDK-compatible stream events
-- [ ] Persist user + assistant messages after stream completes
-- [ ] Configure CORS (`ALLOWED_ORIGINS`) for local frontend origin
+- [x] `app/database/chats.py` — create/list/load threads and messages (user-scoped)
+- [x] REST routes: list threads, create thread, load thread + messages
+- [x] `POST /chat/stream` — accept AI SDK message shape; stream a **stubbed** assistant reply
+- [x] `app/chat/streaming.py` — emit AI SDK-compatible stream events
+- [x] Persist user + assistant messages after stream completes
+- [x] Configure CORS (`ALLOWED_ORIGINS`) for local frontend origin
 
 ---
 
@@ -107,11 +108,12 @@ Thread CRUD + streaming stub before real LLM work.
 
 Prove the full browser → FastAPI → DB loop.
 
-- [ ] `src/lib/api.ts` — thread list, create, load history
-- [ ] Chat route + layout (`src/pages/chat/*`)
-- [ ] Integrate Vercel AI SDK `useChat` pointed at `${API}/chat/stream` with Supabase token headers
-- [ ] Basic message list + input + streaming indicator
-- [ ] Empty state for new thread
+- [x] `src/lib/api.ts` — thread list, create, load history
+- [x] Chat route + layout (`src/pages/chat/*`)
+- [x] Integrate Vercel AI SDK `useChat` pointed at `${API}/chat/stream` with Supabase token headers
+- [x] Basic message list + input + streaming indicator
+- [x] Empty state for new thread
+- [x] Frontend checks: `pnpm exec tsc --noEmit`, `pnpm lint`, Vite app loads, unauthenticated `/chat` redirects to `/auth`
 - [ ] Confirm: sign in → new thread → send message → see stub stream → reload → history persists
 
 ---
@@ -120,12 +122,12 @@ Prove the full browser → FastAPI → DB loop.
 
 Get real SEC filings into Supabase. Can run in parallel with Phase 5 if using stub chat.
 
-- [ ] `backend/ingest/` — parse downloaded filings to normalized Markdown
-- [ ] Chunking strategy (size, overlap, metadata: ticker, filing type, date, section)
-- [ ] Embedding generation (OpenAI) + write `document_chunks` + `source_documents`
-- [ ] Populate Postgres `tsvector` for full-text search
-- [ ] Ingest script CLI (e.g. `uv run python -m ingest.run --manifest data/downloads/manifest.json`)
-- [ ] Confirm: sample AAPL/MSFT 10-K chunks queryable in DB
+- [x] `backend/ingest/` — parse downloaded filings to normalized Markdown (`convert_html_to_markdown.py`, via docling; spot-checked tables convert correctly)
+- [x] Chunking strategy (size, overlap, metadata: ticker, filing type, date, section) — `ingest/chunking.py` (400 words / 50 overlap, paragraph-aware)
+- [x] Embedding generation (OpenAI) + write `document_chunks` + `source_documents` — `ingest/embeddings.py`, `app/database/documents.py`
+- [x] Populate Postgres `tsvector` for full-text search — generated column on insert; no separate ingest step
+- [x] Ingest script CLI (e.g. `uv run python -m ingest.run --manifest ../data/downloads/manifest.json`)
+- [x] Confirm: corpus ingested — 25 sample 10-K filings (AAPL, MSFT, NVDA, AMZN, GOOGL) in `source_documents` + `document_chunks` (batched chunk inserts; `page_label` clipped to 128 chars)
 
 ---
 
@@ -133,10 +135,10 @@ Get real SEC filings into Supabase. Can run in parallel with Phase 5 if using st
 
 Hybrid search before the agent.
 
-- [ ] `app/retrieval/queries.py` — pgvector semantic search + Postgres full-text search
-- [ ] `app/retrieval/fusion.py` — Reciprocal Rank Fusion in Python
-- [ ] `app/retrieval/retriever.py` — query → ranked `SourcePassage` list
-- [ ] Unit tests for fusion ranking and query assembly (mock DB)
+- [x] `app/retrieval/queries.py` — pgvector semantic search + Postgres full-text search
+- [x] `app/retrieval/fusion.py` — Reciprocal Rank Fusion in Python
+- [x] `app/retrieval/retriever.py` — query → ranked `SourcePassage` list
+- [x] Unit tests for fusion ranking and query assembly (mock DB)
 - [ ] Confirm: test query returns relevant chunks from ingested corpus
 
 ---
@@ -145,12 +147,12 @@ Hybrid search before the agent.
 
 Replace stub stream with grounded answers.
 
-- [ ] `app/assistant/` — PydanticAI agent, deps, typed `GroundedAnswer` output, `instructions.md`
-- [ ] Agent tools: `search_filings`, `read_chunk`, `read_surrounding_chunks` (no free-form SQL)
-- [ ] `app/chat/orchestrator.py` — one turn: retrieve → agent → validate → stream → persist
-- [ ] `app/grounding/validator.py` — every citation maps to a retrieved passage
-- [ ] Wire `/chat/stream` to orchestrator
-- [ ] Unit tests for citation validation and grounding failures
+- [x] `app/assistant/` — PydanticAI agent, deps, typed `GroundedAnswer` output, `instructions.md`
+- [x] Agent tools: `search_filings`, `read_chunk`, `read_surrounding_chunks` (no free-form SQL)
+- [x] `app/chat/orchestrator.py` — one turn: retrieve → agent → validate → stream → persist
+- [x] `app/grounding/validator.py` — every citation maps to a retrieved passage
+- [x] Wire `/chat/stream` to orchestrator
+- [x] Unit tests for citation validation and grounding failures
 - [ ] Confirm: real question returns cited answer from corpus (curl or frontend)
 
 ---

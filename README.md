@@ -1,5 +1,7 @@
 https://www.youtube.com/watch?v=qF5il_9IwME&t=17s
 
+# this is a test line   
+
 # Document Copilot
 
 An internal AI chatbot that lets analysts query a corpus of documents in plain English and get sourced, citable answers.
@@ -68,3 +70,17 @@ uv run data/download.py
 
 By default this downloads the latest 5 10-K filings for AAPL, MSFT, NVDA, AMZN, and GOOGL into year folders under `data/downloads/` and writes a `manifest.json`.
 Downloaded files are gitignored; the `data/` folder itself stays in git for the script and notes.
+
+======================
+
+1. Supabase: 
+
+   DATABASE_PASS: yER7^0l3-0,0
+
+2. run linter 
+
+   uv run ruff check .
+   uv run ruff format .
+
+    uv run ruff check app tests
+    uv run ruff format app tests
